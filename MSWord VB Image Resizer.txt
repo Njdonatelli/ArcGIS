@@ -1,0 +1,28 @@
+Sub ResizeAllPictures()
+    Dim iShape As InlineShape
+    Dim shp As Shape
+
+    ' Set the desired width and height
+    Dim newWidth As Single
+    Dim newHeight As Single
+    newWidth = 100 ' Change to your desired width in points
+    newHeight = 100 ' Change to your desired height in points
+
+    ' Resize inline shapes (pictures within the text)
+    For Each iShape In ActiveDocument.InlineShapes
+        If iShape.Type = wdInlineShapePicture Then
+            iShape.LockAspectRatio = msoFalse
+            iShape.Width = newWidth
+            iShape.Height = newHeight
+        End If
+    Next iShape
+
+    ' Resize floating shapes (pictures not inline with text)
+    For Each shp In ActiveDocument.Shapes
+        If shp.Type = msoPicture Then
+            shp.LockAspectRatio = msoFalse
+            shp.Width = newWidth
+            shp.Height = newHeight
+        End If
+    Next shp
+End Sub
